@@ -1,0 +1,8 @@
+C:\Users\karol.wasyliszyn\IdeaProjects\TodoListJU\src\main\java\pl\todolist\todo\item\TodoItem.java
+C:\Users\karol.wasyliszyn\IdeaProjects\TodoListJU\src\main\java\pl\todolist\todo\core\TodoItemValidator.java
+C:\Users\karol.wasyliszyn\IdeaProjects\TodoListJU\src\main\java\pl\todolist\todo\list\TodoList.java
+C:\Users\karol.wasyliszyn\IdeaProjects\TodoListJU\src\main\java\pl\todolist\todo\exceptions\TodoItemDescriptionIsTooLong.java
+C:\Users\karol.wasyliszyn\IdeaProjects\TodoListJU\src\main\java\pl\todolist\todo\exceptions\TodoItemDescriptionIsEmpty.java
+C:\Users\karol.wasyliszyn\IdeaProjects\TodoListJU\src\main\java\pl\todolist\todo\interfaces\StatusChangeable.java
+C:\Users\karol.wasyliszyn\IdeaProjects\TodoListJU\src\main\java\pl\todolist\todo\item\ItemStatus.java
+C:\Users\karol.wasyliszyn\IdeaProjects\TodoListJU\src\main\java\pl\todolist\todo\exceptions\TodoItemHaveEmptyTitleOrNullValue.java

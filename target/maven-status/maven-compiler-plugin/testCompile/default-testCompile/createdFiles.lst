@@ -1,0 +1,7 @@
+pl\todolist\todo\parametriezedTests\BaseTestPar.class
+pl\todolist\todo\matchers\ValidTodoItemMatcher.class
+pl\todolist\todo\parametriezedTests\TodoItemArgumentProvider.class
+pl\todolist\todo\parametriezedTests\ParametrizedTodoItem.class
+pl\todolist\todo\item\TodoItemTest.class
+pl\todolist\todo\list\TodoListTest.class
+pl\todolist\todo\item\BaseTest.class

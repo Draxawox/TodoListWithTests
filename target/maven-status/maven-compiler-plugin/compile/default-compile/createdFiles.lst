@@ -1,0 +1,8 @@
+pl\todolist\todo\exceptions\TodoItemDescriptionIsEmpty.class
+pl\todolist\todo\item\TodoItem.class
+pl\todolist\todo\exceptions\TodoItemDescriptionIsTooLong.class
+pl\todolist\todo\core\TodoItemValidator.class
+pl\todolist\todo\list\TodoList.class
+pl\todolist\todo\item\ItemStatus.class
+pl\todolist\todo\exceptions\TodoItemHaveEmptyTitleOrNullValue.class
+pl\todolist\todo\interfaces\StatusChangeable.class

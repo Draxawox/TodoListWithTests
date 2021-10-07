@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+TodoListJU,pl.todolist.todo.item,ItemStatus,0,21,0,0,0,4,0,1,0,1
+TodoListJU,pl.todolist.todo.item,TodoItem,0,148,3,19,0,45,3,21,0,13
+TodoListJU,pl.todolist.todo.core,TodoItemValidator,3,59,0,8,1,16,1,10,1,6
+TodoListJU,pl.todolist.todo.list,TodoList,187,0,20,0,47,0,21,0,11,0
+TodoListJU,pl.todolist.todo.exceptions,TodoItemHaveEmptyTitleOrNullValue,0,3,0,0,0,2,0,1,0,1
+TodoListJU,pl.todolist.todo.exceptions,TodoItemDescriptionIsTooLong,0,3,0,0,0,2,0,1,0,1
+TodoListJU,pl.todolist.todo.exceptions,TodoItemDescriptionIsEmpty,0,3,0,0,0,2,0,1,0,1

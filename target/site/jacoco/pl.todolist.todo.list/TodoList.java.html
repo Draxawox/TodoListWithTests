@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TodoList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TodoListJU</a> &gt; <a href="index.source.html" class="el_package">pl.todolist.todo.list</a> &gt; <span class="el_source">TodoList.java</span></div><h1>TodoList.java</h1><pre class="source lang-java linenums">package pl.todolist.todo.list;
+
+import pl.todolist.todo.item.ItemStatus;
+import pl.todolist.todo.item.TodoItem;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class TodoList {
+    List&lt;TodoItem&gt; list;
+    private String title;
+
+<span class="nc" id="L15">    public TodoList(String title) {</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">        if (title.trim().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L17">            System.out.println(&quot;wrong title&quot;);</span>
+<span class="nc" id="L18">            return;</span>
+        } else {
+<span class="nc" id="L20">            this.title = title;</span>
+        }
+<span class="nc" id="L22">        this.list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L23">    }</span>
+
+    public static TodoList addTwoLists(TodoList one, TodoList two, String newTitle) {
+<span class="nc" id="L26">        TodoList newer = new TodoList(newTitle);</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        for (TodoItem s : one.getList()) {</span>
+<span class="nc" id="L28">            newer.append(s);</span>
+<span class="nc" id="L29">        }</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        for (TodoItem s : two.getList()) {</span>
+<span class="nc" id="L31">            newer.append(s);</span>
+<span class="nc" id="L32">        }</span>
+<span class="nc" id="L33">        System.out.println(&quot;Todolist &quot; + newTitle + &quot; created&quot;);</span>
+<span class="nc" id="L34">        return newer;</span>
+    }
+
+    public String getTitle() {
+<span class="nc" id="L38">        return title;</span>
+    }
+
+    public void setTitle(String title) {
+<span class="nc" id="L42">        this.title = title;</span>
+<span class="nc" id="L43">    }</span>
+
+    public List&lt;TodoItem&gt; getList() {
+<span class="nc" id="L46">        return list;</span>
+    }
+
+    public int getSize() {
+<span class="nc" id="L50">        return this.list.size();</span>
+    }
+
+
+    public void append(TodoItem item) {
+<span class="nc" id="L55">        boolean dup = false;</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        for (TodoItem x : this.list) {</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            if (x.getTitle().equals(item.getTitle())) {</span>
+<span class="nc" id="L58">                dup = true;</span>
+<span class="nc" id="L59">                break;</span>
+            }
+<span class="nc" id="L61">        }</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (!(this.list.contains(item))) {</span>
+<span class="nc" id="L63">            System.out.println(&quot;Item already exists&quot;);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        } else if (dup) {</span>
+<span class="nc" id="L65">            System.out.println(&quot;Item with same title already exists&quot;);</span>
+        } else {
+<span class="nc" id="L67">            this.list.add(item);</span>
+<span class="nc" id="L68">            System.out.println(&quot;Item added successfully&quot;);</span>
+        }
+<span class="nc" id="L70">    }</span>
+
+    public void deleteItem(String title) {
+<span class="nc" id="L73">        boolean isDone = false;</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        for (TodoItem x : this.list) {</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (x.getTitle().equals(title)) {</span>
+<span class="nc" id="L76">                isDone = true;</span>
+<span class="nc" id="L77">                System.out.println(&quot;item removed successfully&quot;);</span>
+<span class="nc" id="L78">                this.list.remove(list.indexOf(title));</span>
+            }
+<span class="nc" id="L80">        }</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (!isDone) {</span>
+<span class="nc" id="L82">            System.out.println(&quot;There is no item with this title&quot;);</span>
+        }
+<span class="nc" id="L84">    }</span>
+
+    /*public void sortByStatus() {
+        this.list = list.stream().sorted(TodoItem::compareTo).collect(Collectors.toList());
+    }*/
+
+    public List filterByStatus(ItemStatus st) {
+<span class="nc" id="L91">        return this.list.stream().filter(x -&gt; x.getStatus().equals(st)).collect(Collectors.toList());</span>
+    }
+
+    public void sortByTitle() {
+<span class="nc" id="L95">        this.list = getList().stream().sorted(Comparator.comparing(TodoItem::getTitle)).collect(Collectors.toList());</span>
+<span class="nc" id="L96">    }</span>
+
+
+}
+
+/*
+Items status can be changed for several items
+* */
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
