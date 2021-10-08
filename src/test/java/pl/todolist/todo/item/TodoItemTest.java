@@ -123,7 +123,6 @@ class TodoItemTest extends BaseTest {
     }
 
     @Test
-
     public void validateTitleShouldThrowExceptionWhenCriteriaIsNotPassed() {
         assertAll(
                 () -> assertThrows(TodoItemHaveEmptyTitleOrNullValue.class, () -> TodoItem.of("", description)),

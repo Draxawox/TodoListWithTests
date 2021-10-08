@@ -7,11 +7,11 @@ import pl.todolist.todo.interfaces.StatusChangeable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static pl.todolist.todo.core.TodoItemValidator.validateTitle;
+import static pl.todolist.todo.core.TodoItemTitleValidator.validateTitle;
 
 
-//Comparable<TodoItem>
-public class TodoItem implements StatusChangeable {
+//
+public class TodoItem implements StatusChangeable, Comparable<TodoItem> {
     private String title;
     private String description;
     private ItemStatus itemStatus;
@@ -107,15 +107,15 @@ public class TodoItem implements StatusChangeable {
         this.description = description;
     }
 
-    /* @Override
+    @Override
     public int compareTo(TodoItem item) {
-        if (item.getStatus().ordinal() < this.getStatus().ordinal()) {
+        if (item.getStatus().ordinal() > this.getStatus().ordinal()) {
             return 1;
-        } else if (item.getStatus().ordinal() > this.getStatus().ordinal()) {
+        } else if (item.getStatus().ordinal() < this.getStatus().ordinal()) {
             return -1;
         }
         return 1;
-    }*/
+    }
 }
 
 

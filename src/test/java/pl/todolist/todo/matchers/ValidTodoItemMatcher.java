@@ -16,7 +16,6 @@ public class ValidTodoItemMatcher extends TypeSafeMatcher<TodoItem> {
     }
 
     @Override
-
     protected boolean matchesSafely(TodoItem item) {
         return item.getTitle().equals(title) & item.getDescription().equals(description);
     }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class TodoItemValidator {
+public class TodoItemTitleValidator {
     private static final Logger logger;
     private static final List<Predicate<String>> criteria;
 

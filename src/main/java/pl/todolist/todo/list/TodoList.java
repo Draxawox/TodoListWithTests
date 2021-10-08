@@ -1,37 +1,49 @@
 package pl.todolist.todo.list;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.todolist.todo.exceptions.DuplicateListTitleException;
+import pl.todolist.todo.exceptions.NoItemWithThisTitleException;
+import pl.todolist.todo.exceptions.NoSuchItemException;
 import pl.todolist.todo.item.ItemStatus;
 import pl.todolist.todo.item.TodoItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static pl.todolist.todo.core.TodoListTitleValidator.listTitleValidator;
+
 public class TodoList {
     List<TodoItem> list;
     private String title;
+    private static final Logger logger = LoggerFactory.getLogger(TodoList.class);
 
-    public TodoList(String title) {
-        if (title.trim().equals("")) {
-            System.out.println("wrong title");
-            return;
-        } else {
-            this.title = title;
-        }
+    private TodoList(String title) {
+        listTitleValidator(title);
+        this.title = title;
         this.list = new ArrayList<>();
     }
 
-    public static TodoList addTwoLists(TodoList one, TodoList two, String newTitle) {
-        TodoList newer = new TodoList(newTitle);
-        for (TodoItem s : one.getList()) {
-            newer.append(s);
+    public static TodoList of(String title) {
+        listTitleValidator(title);
+        return new TodoList(title);
+    }
+
+    private TodoList(String title, List<TodoItem> list) {
+        listTitleValidator(title);
+        this.list = list;
+        this.title = title;
+    }
+
+    public void addList(TodoList one) {
+        for (TodoItem x : one.getList()) {
+            if (!this.list.contains(x)) {
+                append(x);
+            }
         }
-        for (TodoItem s : two.getList()) {
-            newer.append(s);
-        }
-        System.out.println("Todolist " + newTitle + " created");
-        return newer;
     }
 
     public String getTitle() {
@@ -39,6 +51,7 @@ public class TodoList {
     }
 
     public void setTitle(String title) {
+        listTitleValidator(title);
         this.title = title;
     }
 
@@ -52,52 +65,64 @@ public class TodoList {
 
 
     public void append(TodoItem item) {
-        boolean dup = false;
         for (TodoItem x : this.list) {
             if (x.getTitle().equals(item.getTitle())) {
-                dup = true;
-                break;
+                logger.warn("Element with same title already exists");
+                throw new DuplicateListTitleException("Element with same title already exists");
             }
         }
-        if (!(this.list.contains(item))) {
-            System.out.println("Item already exists");
-        } else if (dup) {
-            System.out.println("Item with same title already exists");
-        } else {
-            this.list.add(item);
-            System.out.println("Item added successfully");
+        this.list.add(item);
+    }
+
+    public void deleteItem(TodoItem item) {
+        boolean isDone = false;
+        if (this.list.contains(item)) {
+            isDone = true;
+            this.list.remove(item);
+        }
+        if (!isDone) {
+            logger.warn("Item is not existing");
+            throw new NoSuchItemException("Item is not existing");
         }
     }
 
     public void deleteItem(String title) {
         boolean isDone = false;
-        for (TodoItem x : this.list) {
+        for (TodoItem x : this.list.stream().toList()) {
             if (x.getTitle().equals(title)) {
                 isDone = true;
-                System.out.println("item removed successfully");
-                this.list.remove(list.indexOf(title));
+                deleteItem(x);
             }
         }
         if (!isDone) {
-            System.out.println("There is no item with this title");
+            logger.warn("There is no item with this title");
+            throw new NoItemWithThisTitleException("There is no item with this title");
         }
     }
 
-    /*public void sortByStatus() {
+    public void sortByStatus() {
         this.list = list.stream().sorted(TodoItem::compareTo).collect(Collectors.toList());
-    }*/
+    }
 
-    public List filterByStatus(ItemStatus st) {
-        return this.list.stream().filter(x -> x.getStatus().equals(st)).collect(Collectors.toList());
+    public TodoList filterByStatus(ItemStatus st) {
+        TodoList filtered;
+        List<TodoItem> listOfItems = this.list
+                .stream()
+                .filter(x -> x.getStatus()
+                        .equals(st))
+                .collect(Collectors.toList());
+        return new TodoList(this.title, listOfItems);
     }
 
     public void sortByTitle() {
         this.list = getList().stream().sorted(Comparator.comparing(TodoItem::getTitle)).collect(Collectors.toList());
     }
 
+    public void changeStatuses(TodoItem... items) {
+        Arrays.stream(items).forEach(TodoItem::toggleStatus);
+    }
 
+    public void setStatusesToComplete(TodoItem... items) {
+        Arrays.stream(items).forEach(TodoItem::complete);
+    }
 }
-
-/*
-Items status can be changed for several items
-* */
